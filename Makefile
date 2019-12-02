@@ -83,7 +83,7 @@ LIBX264_CONFIG = "--enable-static --enable-pic"
 
 $(LIBX264_DIR):
 	mkdir -p $@
-	git -C $@ pull 2> /dev/null || git -C build/ clone --depth 1 $(LIBX264_URL) libx264
+	git -C build/ clone --depth 1 $(LIBX264_URL) libx264
 
 $(LIBX264): $(LIBX264_DIR)
 	PATH="$(BIN_DIR):$PATH" cd $(LIBX264_DIR) && ./configure --prefix="$(BIN_DIR)" --bindir=$(BIN_DIR) $(LIBX264_CONFIG)
@@ -126,7 +126,7 @@ LIBVPX_CONFIG = --disable-examples --disable-unit-tests --enable-vp9-highbitdept
 
 $(LIBVPX_DIR):
 	mkdir -p $@
-	git -C $@ pull 2> /dev/null || git -C build/ clone --depth 1 $(LIBVPX_URL) libvpx
+	git -C build/ clone --depth 1 $(LIBVPX_URL) libvpx
 
 $(LIBVPX): $(LIBVPX_DIR)
 	cd $(LIBVPX_DIR) && ./configure --prefix="$(BIN_DIR)" $(LIBVPX_CONFIG)
@@ -147,7 +147,7 @@ LIBFDK_AAC_CONFIG = "--disable-shared"
 
 $(LIBFDK_AAC_DIR):
 	mkdir -p $@
-	git -C $@ pull 2> /dev/null || git -C build/ clone --depth 1 $(LIBFDK_AAC_URL) LIBFDK_AAC
+	git -C build/ clone --depth 1 $(LIBFDK_AAC_URL) LIBFDK_AAC
 
 $(LIBFDK_AAC): $(LIBFDK_AAC_DIR)
 	cd $(LIBFDK_AAC_DIR) && autoreconf -fiv 
@@ -196,7 +196,7 @@ LIBOPUS_CONFIG = "--disable-shared"
 
 $(LIBOPUS_DIR):
 	mkdir -p $@
-	git -C $@ pull 2> /dev/null || git -C build/ clone --depth 1 $(LIBOPUS_URL) libopus
+	git -C build/ clone --depth 1 $(LIBOPUS_URL) libopus
 
 $(LIBOPUS): $(LIBOPUS_DIR)
 	cd $(LIBOPUS_DIR) && ./autogen.sh
@@ -218,7 +218,7 @@ LIBAOM_CONFIG = -DENABLE_SHARED=off -DENABLE_NASM=on
 
 $(LIBAOM_DIR):
 	mkdir -p $@
-	git -C $@ pull 2> /dev/null || git -C build/ clone --depth 1 $(LIBAOM_URL) libaom
+	git -C build/ clone --depth 1 $(LIBAOM_URL) libaom
 
 $(LIBAOM): $(LIBAOM_DIR)
 	mkdir -p $(LIBAOM_DIR)/build
@@ -239,7 +239,7 @@ NV_CODEC_HEDAERS_URL = https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
 
 $(NV_CODEC_HEDAERS_DIR):
 	mkdir -p $@
-	git -C $@ pull 2> /dev/null || git -C build/ clone --depth 1 $(NV_CODEC_HEDAERS_URL) nv-codec-headers
+	git -C build/ clone --depth 1 $(NV_CODEC_HEDAERS_URL) nv-codec-headers
 
 $(NV_CODEC_HEDAERS): $(NV_CODEC_HEDAERS_DIR)
 	mkdir -p $(NV_CODEC_HEDAERS_DIR)/build
@@ -259,11 +259,11 @@ Z_IMG_URL = https://github.com/sekrit-twc/zimg.git
 
 $(Z_IMG_DIR):
 	mkdir -p $@
-	git -C $@ pull 2> /dev/null || git -C build/ clone --depth 1 $(Z_IMG_URL) zimg
+	git -C build/ clone --depth 1 $(Z_IMG_URL) zimg
 
 $(Z_IMG): $(Z_IMG_DIR)
 	cd $(Z_IMG_DIR) && ./autogen.sh
-	cd $(Z_IMG_DIR) && ./configure --prefix="$(BIN_DIR)" --bindir=$(BIN_DIR) --disable-shared
+	cd $(Z_IMG_DIR) && ./configure --prefix="$(BIN_DIR)" --bindir=$(BIN_DIR) --disable-shared --enable-static
 	make -C $< -j$(MAKE_J)
 	make -C $< install
 	rm $(BIN_DIR)/lib/libzimg.so.2
