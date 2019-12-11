@@ -266,10 +266,6 @@ $(Z_IMG): $(Z_IMG_DIR)
 	cd $(Z_IMG_DIR) && ./configure --prefix="$(BIN_DIR)" --bindir=$(BIN_DIR) --disable-shared --enable-static
 	make -C $< -j$(MAKE_J)
 	make -C $< install
-	rm $(BIN_DIR)/lib/libzimg.so.2
-	rm $(BIN_DIR)/lib/libzimg.so
-	cp $(BIN_DIR)/lib/libzimg.so.2.0.0 $(BIN_DIR)/lib/libzimg.so.2
-	cp $(BIN_DIR)/lib/libzimg.so.2.0.0 $(BIN_DIR)/lib/libzimg.so
 
 clean-z-img:
 	$(RM) $(Z_IMG_DIR) $(Z_IMG)
@@ -310,7 +306,7 @@ $(FFMPEG_DIR): $(FFMPEG_TAR)
 	mkdir -p $@
 	tar -xzvf $< --strip-components=1 --directory=$@
 
-$(FFMPEG): $(NASM) $(YASM) $(LIBX264) $(LIBX265) $(LIBVPX) $(LIBFDK_AAC) $(LIBMP3LAME) $(LIBOPUS) $(LIBAOM) $(Z_IMG) $(FFMPEG_DIR)
+$(FFMPEG): $(FFMPEG_DIR)
 	cd $(FFMPEG_DIR) && ./configure --prefix="$(BIN_DIR)" --bindir=$(BIN_DIR) $(FFMPEG_CONFIG)
 	make -C $(FFMPEG_DIR) -j$(MAKE_J)
 	make -C $(FFMPEG_DIR) install

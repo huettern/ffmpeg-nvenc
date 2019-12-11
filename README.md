@@ -72,3 +72,17 @@ make nv-codec-headers
 # ffmpeg
 make ffmpeg
 ```
+
+## FAQ
+
+### Library error
+```
+ffmpeg: error while loading shared libraries: libzimg.so.2: cannot open shared object file: No such file or directory
+```
+
+The z-img filter needs a .so shared object file located under `build/bin/lib/`. Either run ffmpeg with `LD_LIBRARY_PATH` set to this location:
+
+```bash
+LD_LIBRARY_PATH=~/git/ffmpeg-nvenc-2/build/bin/lib ffmpeg
+```
+
